@@ -1,5 +1,5 @@
 # SafeRestaurant
-OK
+Done
 
 식당API 불러오기
 
