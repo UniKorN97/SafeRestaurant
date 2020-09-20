@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView, Switch } from 'react-native';
 import axios from 'axios';
 
 class App extends Component {
@@ -14,11 +14,11 @@ class App extends Component {
       )
     }
     search(tagList){
-      const dataAPI = 'http://211.237.50.150:7080/openapi/2532cb13adf711228d1059388c96ca0020080e57dc386ebd4e2280d494aaba48/json/Grid_20200713000000000605_1/1/30?';
+      let dataAPI = 'http://211.237.50.150:7080/openapi/2532cb13adf711228d1059388c96ca0020080e57dc386ebd4e2280d494aaba48/json/Grid_20200713000000000605_1/1/30?';
       
-      tagList.forEach(function(tag){
-        { dataAPI + '' +tag + '&' }
-      });
+      for (let tag of tagList) {
+        dataAPI = dataAPI + tag + '&'
+      }
 
       alert(dataAPI);
 
@@ -29,17 +29,15 @@ class App extends Component {
       let tagList = ["RELAX_SI_NM=경기도","RELAX_SIDO_NM=안양시"];
       return (
         <View style={styles.container}>
-          <View>
+          <View id = "resultLayout" style={styles.mainLayout}>
             {
               this.refreash()
             }
           </View>
-          <View>
+          <View style={styles.searchLayout}>
             {
-              <Button title='검색' onPress={this.search(tagList)}></Button>
+              <Button title='검색' onPress={() => this.search(tagList)}/>
             }
-          </View>
-          <View>
           </View>
         </View>
       );
@@ -49,16 +47,18 @@ class App extends Component {
 export default App;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
 
-  container : {
-    flex : 1,
-    backgroundColor : '#fff',
-    alignItems : 'center',
-    justifyContent : 'center',
   },
-  scrollContainer : {
+  mainLayout : {
+    flex : 3,
+    backgroundColor: '#FFFFFF',
+  },
+  searchLayout : {
     flex : 1,
-    backgroundColor : '#000',
+    backgroundColor: '#000000',
   },
 });
 
